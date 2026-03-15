@@ -1,0 +1,128 @@
+<!DOCTYPE html>
+<html lang="bn">
+<head>
+<meta charset="UTF-8">
+<title>Secure User Login</title>
+
+<style>
+body{
+ margin:0;
+ background:#eef2f7;
+ font-family:Segoe UI;
+}
+.container{
+ max-width:420px;
+ margin:40px auto;
+ background:white;
+ padding:25px;
+ border-radius:12px;
+ box-shadow:0 5px 15px rgba(0,0,0,.1);
+ text-align:center;
+}
+h2{margin-bottom:20px;color:#2b7cff;}
+input{
+ width:100%;
+ padding:12px;
+ margin:8px 0;
+ border:1px solid #ccc;
+ border-radius:6px;
+}
+button{
+ width:100%;
+ padding:12px;
+ margin-top:8px;
+ background:#2b7cff;
+ color:white;
+ border:none;
+ border-radius:6px;
+ cursor:pointer;
+ font-weight:bold;
+}
+button:hover{background:#1a5ed8;}
+.msg{margin-top:10px;font-weight:bold;}
+.card{
+ text-align:left;
+ margin-top:20px;
+ padding:15px;
+ border-radius:8px;
+ background:#f9f9f9;
+ border:1px solid #ddd;
+}
+</style>
+</head>
+
+<body>
+
+<div class="container">
+
+<h2> Secure Login</h2>
+
+<input id="username" placeholder="Username">
+<input id="password" type="password" placeholder="Password">
+<input id="pin" type="password" placeholder="PIN">
+
+<button onclick="login()">Login</button>
+
+<div id="msg" class="msg"></div>
+<div id="result"></div>
+
+</div>
+
+<script>
+
+// Offline database (edit )
+const users=[
+{
+username:"pontu",
+password:"1234",
+pin:"1234",
+name:"pontu",
+date:"2026-02-01",
+amount:5000,
+status:"Approved"
+},
+{
+username:"poltu",
+password:"102030",
+pin:"2222",
+name:"poltu",
+date:"2026-01-10",
+amount:9000,
+status:"Pending"
+}
+];
+
+function login(){
+
+let u=username.value.trim();
+let p=password.value.trim();
+let pi=pin.value.trim();
+
+let found=users.find(x=>x.username===u && x.password===p && x.pin===pi);
+
+if(found){
+
+msg.style.color="green";
+msg.innerHTML=" Login Success";
+
+result.innerHTML=`
+<div class="card">
+<b>:</b> ${found.name}<br>
+<b>:</b> ${found.date}<br>
+<b>:</b> ${found.amount}<br>
+<b>:</b> ${found.status}
+</div>
+`;
+
+}else{
+msg.style.color="red";
+msg.innerHTML=" Wrong Username / Password / PIN";
+result.innerHTML="";
+}
+
+}
+
+</script>
+
+</body>
+</html>
